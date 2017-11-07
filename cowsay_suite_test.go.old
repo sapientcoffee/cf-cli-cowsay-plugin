@@ -1,0 +1,27 @@
+package main_test
+
+import (
+	cowsayX "github.com/clijockey/cowsay"
+
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+
+	"testing"
+)
+
+func TestCowsay(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Cowsay Suite")
+}
+
+var _ = Describe("cowsay", func() {
+	Describe("the basic command", func() {
+		It("should say 'oh hey' if no param is given", func() {
+			c := new(cowsayX.Cowsay)
+			c.Run(nil, []string{"cowsay"})
+
+		})
+	})
+	Describe("the apps command", func() {})
+	Describe("the space command", func() {})
+})

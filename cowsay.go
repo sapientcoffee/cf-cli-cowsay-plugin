@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"code.cloudfoundry.org/cli/plugin"
 	"code.cloudfoundry.org/cli/plugin/models"
@@ -10,7 +11,7 @@ import (
 
 // Struct implementing the interface defined by the core CLI. It can
 // be found at  "code.cloudfoundry.org/cli/plugin/plugin.go"
-type cowsay struct{}
+type Cowsay struct{}
 
 // Run must be implemented by any plugin because it is part of the
 // plugin interface defined by the core CLI.
@@ -24,11 +25,16 @@ type cowsay struct{}
 // Any error handling should be handled with the plugin itself (this means printing
 // user facing errors). The CLI will exit 0 if the plugin exits 0 and will exit
 // 1 should the plugin exits nonzero.
-func (c *cowsay) Run(cliConnection plugin.CliConnection, args []string) {
+func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 	var err error
 
 	if args[0] == "cowsay" {
-		cow("oh hey!")
+		if len(args) <= 1 {
+			args = append(args, "hey")
+		}
+		args[0] = "oh"
+		cow(strings.Join(args, " "))
+
 	} else if args[0] == "cowsay-apps" {
 		// var apps plugin_models.GetSpace_Apps
 		listofapps, err := cliConnection.GetApps()
@@ -47,11 +53,8 @@ func (c *cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 		}
 		if org, err = cliConnection.GetCurrentOrg(); err != nil {
 		}
-
 		cow("Space: " + space.Name + " in the Space: " + org.Name)
-
 	}
-
 }
 
 func cow(text string) {
@@ -64,7 +67,6 @@ func cow(text string) {
 		panic(err)
 	}
 	fmt.Println(say)
-
 }
 
 // func (c *cowsay) CowsayApps(list) {
@@ -83,7 +85,7 @@ func cow(text string) {
 // defines the command `cf basic-plugin-command` once installed into the CLI. The
 // second field, HelpText, is used by the core CLI to display help information
 // to the user in the core commands `cf help`, `cf`, or `cf -h`.
-func (c *cowsay) GetMetadata() plugin.PluginMetadata {
+func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
 		Name: "cowsay",
 		Version: plugin.VersionType{
@@ -144,7 +146,7 @@ func main() {
 	// Note: The plugin's main() method is invoked at install time to collect
 	// metadata. The plugin will exit 0 and the Run([]string) method will not be
 	// invoked.
-	plugin.Start(new(cowsay))
+	plugin.Start(new(Cowsay))
 	// Plugin code should be written in the Run([]string) method,
 	// ensuring the plugin environment is bootstrapped.
 }
