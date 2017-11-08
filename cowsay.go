@@ -30,7 +30,7 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 
 	if args[0] == "cowsay" {
 		// cow(cowsayer.Simplesay(args))
-		fmt.Println(cowsayer.Simplesay(args)
+		fmt.Println(cowsayer.Simplesay(args))
 
 	} else if args[0] == "cowsay-apps" {
 		// var apps plugin_models.GetSpace_Apps
