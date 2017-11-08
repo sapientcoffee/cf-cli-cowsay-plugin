@@ -7,7 +7,7 @@ import (
 	. "github.com/clijockey/cowsay"
 
 	. "github.com/onsi/ginkgo"
-	// . "github.com/onsi/gomega"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("Cowsay", func() {
@@ -24,13 +24,20 @@ var _ = Describe("Cowsay", func() {
 			cowsay = &Cowsay{}
 		})
 
+		It("should work for simple", func() {
+			c := Cowsay{}
+			Ω(func() { c.Run(fakeCliConnection, []string{"cowsay"}) }).Should(Not(Panic()))
+
+		})
+
+		It("should really also work for spaces", func() {
+			c := Cowsay{}
+			Ω(func() { c.Run(fakeCliConnection, []string{"cowsay-space"}) }).Should(Not(Panic()))
+
+		})
+
 	})
 
-	It("should work for simple", func() {
-		c := Cowsay{}
-		c.Run(nil, []string{"cowsay"})
-
-	})
 })
 
 func invokeCmd(outputChan chan []string, cowsay *Cowsay, fakeCliConnection *pluginfakes.FakeCliConnection) {
