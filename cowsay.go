@@ -70,7 +70,7 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 		Name: "cowsay",
 		Version: plugin.VersionType{
 			Major: 0,
-			Minor: 5,
+			Minor: 6,
 			Build: 1,
 		},
 		MinCliVersion: plugin.VersionType{
@@ -81,12 +81,12 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 		Commands: []plugin.Command{
 			{
 				Name:     "cowsay",
-				HelpText: "Plain old cowsay example, although the comment is hardcoded!",
+				HelpText: "Plain old cowsay example for a little bit of fun!",
 
 				// UsageDetails is optional
 				// It is used to show help of usage of each command
 				UsageDetails: plugin.Usage{
-					Usage: "cf cowsay",
+					Usage: "cf cowsay\n	cf cowsay <some text>\n cf cowsay space\n cf cowsay apps",
 				},
 			},
 			// {
