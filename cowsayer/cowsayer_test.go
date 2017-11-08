@@ -70,9 +70,7 @@ var _ = Describe("Cowsayer package", func() {
 		}{
 			{[]string{"cowsay"}, " ________\n< oh hey >\n --------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
 			{[]string{"cowsay", "rob"}, " ________\n< oh rob >\n --------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
-			// {[]string{"cowsay", "stephan"}, "oh stephan"},
 			{[]string{"cowsay", "rob", "stephan"}, " ________________\n< oh rob stephan >\n ----------------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
-			// {[]string{"shenanigans", "rob", "stephan"}, "oh rob stephan"},
 		}
 
 		for _, tt := range saytest {
