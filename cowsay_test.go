@@ -30,11 +30,11 @@ var _ = Describe("Cowsay", func() {
 
 		})
 
-		It("should really also work for spaces", func() {
-			c := Cowsay{}
-			Ω(func() { c.Run(fakeCliConnection, []string{"cowsay-space"}) }).Should(Not(Panic()))
+		// It("should really also work for spaces", func() {
+		// 	c := Cowsay{}
+		// 	Ω(func() { c.Run(fakeCliConnection, []string{"cowsay-space"}) }).Should(Not(Panic()))
 
-		})
+		// })
 
 	})
 
