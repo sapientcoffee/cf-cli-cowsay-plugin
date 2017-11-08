@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	"code.cloudfoundry.org/cli/plugin"
 	"code.cloudfoundry.org/cli/plugin/models"
 	neocowsay "github.com/Code-Hex/Neo-cowsay"
+	cowsayer "github.com/clijockey/cowsay/cowsayer"
 )
 
 // Struct implementing the interface defined by the core CLI. It can
@@ -29,11 +29,7 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 	var err error
 
 	if args[0] == "cowsay" {
-		if len(args) <= 1 {
-			args = append(args, "hey")
-		}
-		args[0] = "oh"
-		cow(strings.Join(args, " "))
+		cow(cowsayer.Simplesay(args))
 
 	} else if args[0] == "cowsay-apps" {
 		// var apps plugin_models.GetSpace_Apps
