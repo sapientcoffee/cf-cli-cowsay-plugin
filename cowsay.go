@@ -48,8 +48,7 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 				fmt.Println(cowsayer.Simplesay(args))
 			}
 		} else {
-			// fmt.Println(cowsayer.Simplesay(args))
-			fmt.Println("hello")
+			fmt.Println(cowsayer.Simplesay(args))
 		}
 	}
 }
