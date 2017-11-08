@@ -5,7 +5,6 @@ import (
 
 	"code.cloudfoundry.org/cli/plugin"
 	"code.cloudfoundry.org/cli/plugin/models"
-	neocowsay "github.com/Code-Hex/Neo-cowsay"
 	cowsayer "github.com/clijockey/cowsay/cowsayer"
 )
 
@@ -26,49 +25,34 @@ type Cowsay struct{}
 // user facing errors). The CLI will exit 0 if the plugin exits 0 and will exit
 // 1 should the plugin exits nonzero.
 func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
-	var err error
 
 	if args[0] == "cowsay" {
-		// cow(cowsayer.Simplesay(args))
-		fmt.Println(cowsayer.Simplesay(args))
+		if len(args) > 1 {
+			var err error
+			if args[1] == "apps" {
+				listofapps, err := cliConnection.GetApps()
+				if err != nil {
+					panic(err)
+				}
+				fmt.Println(listofapps)
+			} else if args[1] == "space" {
+				var space plugin_models.Space
+				var org plugin_models.Organization
 
-	} else if args[0] == "cowsay-apps" {
-		// var apps plugin_models.GetSpace_Apps
-		listofapps, err := cliConnection.GetApps()
-
-		if err != nil {
-			panic(err)
+				if space, err = cliConnection.GetCurrentSpace(); err != nil {
+				}
+				if org, err = cliConnection.GetCurrentOrg(); err != nil {
+				}
+				fmt.Println(cowsayer.Cow("Space: " + space.Name + " in the organisation: " + org.Name))
+			} else {
+				fmt.Println(cowsayer.Simplesay(args))
+			}
+		} else {
+			// fmt.Println(cowsayer.Simplesay(args))
+			fmt.Println("hello")
 		}
-		// cow(listofapps)
-		fmt.Println(listofapps)
-		//c.CowsayApps(listofapps)
-	} else if args[0] == "cowsay-space" {
-		var space plugin_models.Space
-		var org plugin_models.Organization
-
-		if space, err = cliConnection.GetCurrentSpace(); err != nil {
-		}
-		if org, err = cliConnection.GetCurrentOrg(); err != nil {
-		}
-		fmt.Println(cowsayer.Cow("Space: " + space.Name + " in the organisation: " + org.Name))
 	}
 }
-
-func cow(text string) {
-	say, err := neocowsay.Say(&neocowsay.Cow{
-		Phrase:      text,
-		Type:        "default",
-		BallonWidth: 40,
-	})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(say)
-}
-
-// func (c *cowsay) CowsayApps(list) {
-// 	fmt.Println(list)
-// }
 
 // GetMetadata must be implemented as part of the plugin interface
 // defined by the core CLI.
@@ -106,26 +90,26 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 					Usage: "cf cowsay",
 				},
 			},
-			{
-				Name:     "cowsay-apps",
-				HelpText: "The cow will tell you the applications deployed",
+			// {
+			// 	Name:     "cowsay-apps",
+			// 	HelpText: "The cow will tell you the applications deployed",
 
-				// UsageDetails is optional
-				// It is used to show help of usage of each command
-				UsageDetails: plugin.Usage{
-					Usage: "cf cowsay-apps",
-				},
-			},
-			{
-				Name:     "cowsay-space",
-				HelpText: "The cow will tell you which space you are currently logged into.",
+			// 	// UsageDetails is optional
+			// 	// It is used to show help of usage of each command
+			// 	UsageDetails: plugin.Usage{
+			// 		Usage: "cf cowsay-apps",
+			// 	},
+			// },
+			// {
+			// 	Name:     "cowsay-space",
+			// 	HelpText: "The cow will tell you which space you are currently logged into.",
 
-				// UsageDetails is optional
-				// It is used to show help of usage of each command
-				UsageDetails: plugin.Usage{
-					Usage: "cf cowsay-space",
-				},
-			},
+			// 	// UsageDetails is optional
+			// 	// It is used to show help of usage of each command
+			// 	UsageDetails: plugin.Usage{
+			// 		Usage: "cf cowsay-space",
+			// 	},
+			// },
 		},
 	}
 }
