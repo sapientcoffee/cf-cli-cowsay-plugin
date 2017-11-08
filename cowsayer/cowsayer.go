@@ -11,10 +11,10 @@ func Simplesay(args []string) string {
 		args = append(args, "hey")
 	}
 	args[0] = "oh"
-	return cow(strings.Join(args, " "))
+	return Cow(strings.Join(args, " "))
 }
 
-func cow(text string) string {
+func Cow(text string) string {
 	say, err := neocowsay.Say(&neocowsay.Cow{
 		Phrase:      text,
 		Type:        "default",

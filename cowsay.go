@@ -50,7 +50,7 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 		}
 		if org, err = cliConnection.GetCurrentOrg(); err != nil {
 		}
-		cow("Space: " + space.Name + " in the Space: " + org.Name)
+		fmt.Println(cowsayer.Cow("Space: " + space.Name + " in the organisation: " + org.Name))
 	}
 }
 
