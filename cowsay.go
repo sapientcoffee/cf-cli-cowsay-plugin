@@ -30,10 +30,12 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 		if len(args) > 1 {
 			var err error
 			if args[1] == "apps" {
-				listofapps, err := cliConnection.GetApps()
-				if err != nil {
-					panic(err)
-				}
+				var listofapps []plugin_models.GetAppsModel
+
+				// listofapps, err := cliConnection.GetApps()
+				// if err != nil {
+				// 	return plugin_models.GetAppModel.Name, err
+				// }
 				fmt.Println(listofapps)
 			} else if args[1] == "space" {
 				var space plugin_models.Space
@@ -52,6 +54,19 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 		}
 	}
 }
+
+// func GetApps(appName string, apps []plugin_models.GetAppsModel) (oldApps []plugin_models.GetAppsModel) {
+// 	r := regexp.MustCompile(fmt.Sprintf("^%s(-old|-failed|-new)?$", appName))
+// 	for _, app := range apps {
+// 		if !r.MatchString(app.Name) {
+// 			continue
+// 		}
+
+// 		Apps = append(Apps, app)
+
+// 	}
+// 	return
+// }
 
 // GetMetadata must be implemented as part of the plugin interface
 // defined by the core CLI.
@@ -89,26 +104,6 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 					Usage: "cf cowsay\n	cf cowsay <some text>\n cf cowsay space\n cf cowsay apps",
 				},
 			},
-			// {
-			// 	Name:     "cowsay-apps",
-			// 	HelpText: "The cow will tell you the applications deployed",
-
-			// 	// UsageDetails is optional
-			// 	// It is used to show help of usage of each command
-			// 	UsageDetails: plugin.Usage{
-			// 		Usage: "cf cowsay-apps",
-			// 	},
-			// },
-			// {
-			// 	Name:     "cowsay-space",
-			// 	HelpText: "The cow will tell you which space you are currently logged into.",
-
-			// 	// UsageDetails is optional
-			// 	// It is used to show help of usage of each command
-			// 	UsageDetails: plugin.Usage{
-			// 		Usage: "cf cowsay-space",
-			// 	},
-			// },
 		},
 	}
 }
