@@ -19,12 +19,11 @@ I am sure that this could be written in a more efficient way however for the pur
                 ||     ||
 ```
 
-
 ```
-➔ cf cowsay-space
- __________________________________
-< Space: rob in the Space: testing >
- ----------------------------------
+➔ cf cowsay hello
+ _______
+< hello >
+ -------
         \   ^__^
          \  (oo)\_______
             (__)\       )\/\
@@ -32,6 +31,23 @@ I am sure that this could be written in a more efficient way however for the pur
                 ||     ||
 ```
 
+```
+➔ cf cowsay space
+ _________________________________________
+< Space: rob in the organisation: testing >
+ -----------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+````
+➔ cf cowsay apps
+
+WIP: but will display the apps in the space and thier status.
+```
 
 ### Install
 
