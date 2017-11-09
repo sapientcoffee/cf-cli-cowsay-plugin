@@ -85,7 +85,7 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 		Name: "cowsay",
 		Version: plugin.VersionType{
 			Major: 0,
-			Minor: 6,
+			Minor: 7,
 			Build: 1,
 		},
 		MinCliVersion: plugin.VersionType{
