@@ -8,10 +8,10 @@ import (
 
 func Simplesay(args []string) string {
 	if len(args) <= 1 {
-		args = append(args, "hey")
+		args = append(args, "oh hey")
 	}
-	args[0] = "oh"
-	return Cow(strings.Join(args, " "))
+
+	return Cow(strings.Join(args[1:], " "))
 }
 
 func Cow(text string) string {

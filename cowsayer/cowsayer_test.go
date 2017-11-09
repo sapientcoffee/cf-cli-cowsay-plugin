@@ -69,8 +69,8 @@ var _ = Describe("Cowsayer package", func() {
 			out string
 		}{
 			{[]string{"cowsay"}, " ________\n< oh hey >\n --------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
-			{[]string{"cowsay", "rob"}, " ________\n< oh rob >\n --------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
-			{[]string{"cowsay", "rob", "stephan"}, " ________________\n< oh rob stephan >\n ----------------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
+			{[]string{"cowsay", "rob"}, " _____\n< rob >\n -----\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
+			{[]string{"cowsay", "super", "duppa"}, " _____________\n< super duppa >\n -------------\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||"},
 		}
 
 		for _, tt := range saytest {
