@@ -43,7 +43,7 @@ I am sure that this could be written in a more efficient way however for the pur
                 ||     ||
 ```
 
-````
+```
 ➔ cf cowsay apps
 
 WIP: but will display the apps in the space and thier status.
