@@ -3,7 +3,11 @@ This is a fun learning exercise to teach me how to create a cf cli and also help
 
 I am sure that this could be written in a more efficient way however for the purpose of learning it is what it is. My goal was to have a working `cf cli` plugin by writing my 1st golang progam that is testable (new concept as well).
 
+### Still to do
 
+* Extract the app details and status for space and display
+* Complete the tests with ginkgo
+* Complete this Readme page
 
 ## Usage
 
