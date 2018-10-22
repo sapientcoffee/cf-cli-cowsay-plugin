@@ -29,15 +29,25 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 	if args[0] == "cowsay" {
 		if len(args) > 1 {
 			var err error
+			// var rob :=
 			if args[1] == "apps" {
-				var listofapps []plugin_models.GetAppsModel
 
-				// listofapps, err := cliConnection.GetApps()
-				// if err != nil {
-				// 	return plugin_models.GetAppModel.Name, err
-				// }
-				fmt.Println(listofapps)
+				// var res []plugin_models.GetAppsModel
+				appsListing, err := cliConnection.GetApps()
+
+				// fmt.Println(appsListing)
+
+				if err != nil {
+					//c.ui.Failed(err.Error())
+				}
+
+				for _, app := range appsListing {
+
+					fmt.Println(cowsayer.Cow("Application: " + app.Name + "........" + app.State))
+				}
+
 			} else if args[1] == "space" {
+				// Work out the space and org that you are in so it can be retruned to the CLI
 				var space plugin_models.Space
 				var org plugin_models.Organization
 
@@ -47,6 +57,7 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 				}
 				fmt.Println(cowsayer.Cow("Space: " + space.Name + " in the organisation: " + org.Name))
 			} else {
+				// Default answer so that it just prints the message you passed to the CLI
 				fmt.Println(cowsayer.Simplesay(args))
 			}
 		} else {
@@ -54,19 +65,6 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 		}
 	}
 }
-
-// func GetApps(appName string, apps []plugin_models.GetAppsModel) (oldApps []plugin_models.GetAppsModel) {
-// 	r := regexp.MustCompile(fmt.Sprintf("^%s(-old|-failed|-new)?$", appName))
-// 	for _, app := range apps {
-// 		if !r.MatchString(app.Name) {
-// 			continue
-// 		}
-
-// 		Apps = append(Apps, app)
-
-// 	}
-// 	return
-// }
 
 // GetMetadata must be implemented as part of the plugin interface
 // defined by the core CLI.
@@ -86,7 +84,7 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 		Version: plugin.VersionType{
 			Major: 0,
 			Minor: 7,
-			Build: 1,
+			Build: 3,
 		},
 		MinCliVersion: plugin.VersionType{
 			Major: 6,

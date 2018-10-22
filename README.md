@@ -50,13 +50,26 @@ I am sure that this could be written in a more efficient way however for the pur
 ```
 ➔ cf cowsay apps
 
-WIP: but will display the apps in the space and thier status.
+___________________________________
+< Application:phpApp........started >
+ -----------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
 ```
 
 ### Install
-
+Download the release then;
 `cf install-plugin cowsay`
 
+OR
+
+```
+$ go get github.com/clijockey/cf-cli-cowsay-plugin
+$ cf install-plugin $GOPATH/bin/cf-cli-cowsay-plugin
+```
 
 ### Delete 
 `cf uninstall-plugin cowsay`
@@ -67,4 +80,6 @@ WIP: but will display the apps in the space and thier status.
 
 ### Compile
 
-
+```
+go build -o ./bin/cowsay ./cowsay.go
+```
