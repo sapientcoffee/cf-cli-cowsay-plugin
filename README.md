@@ -49,10 +49,15 @@ I am sure that this could be written in a more efficient way however for the pur
 
 ```
 ➔ cf cowsay apps
-
-___________________________________
-< Application:phpApp........started >
- -----------------------------------
+ ______________________________________
+/ So `attendees` has stopped man!! 🔴  \
+| So `beginner-k8s` is all good ✅     |
+| So `intermediate` is all good ✅     |
+| So `k8s-training` is all good ✅     |
+| So `mongodb-app` is all good ✅      |
+| So `PHP-demo` is all good ✅         |
+\ So `phpApp` is all good ✅           /
+ --------------------------------------
         \   ^__^
          \  (oo)\_______
             (__)\       )\/\

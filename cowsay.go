@@ -7,6 +7,7 @@ import (
 	"code.cloudfoundry.org/cli/plugin"
 	"code.cloudfoundry.org/cli/plugin/models"
 	cowsayer "github.com/clijockey/cowsay/cowsayer"
+	"gopkg.in/kyokomi/emoji.v1"
 )
 
 // Struct implementing the interface defined by the core CLI. It can
@@ -31,11 +32,8 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 		if len(args) > 1 {
 			var err error
 			if args[1] == "apps" {
-
-				// var res []plugin_models.GetAppsModel
+				// Work out the running apps in the space and also thier status
 				appsListing, err := cliConnection.GetApps()
-
-				// fmt.Println(appsListing)
 
 				if err != nil {
 					//c.ui.Failed(err.Error())
@@ -44,9 +42,15 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 				var appsStatus []string
 
 				for _, app := range appsListing {
-
-					data := "Application: " + app.Name + " " + app.State
-					// fmt.Println(cowsayer.Cow("Application: " + app.Name + "........" + app.State))
+					var state string
+					if app.State == "started" {
+						state = emoji.Sprint("is all good :white_check_mark:")
+					} else if app.State == "stopped" {
+						state = emoji.Sprint("has stopped man!! :red_circle:")
+					} else {
+						state = app.State + emoji.Sprint(" :confused:")
+					}
+					data := "So `" + app.Name + "` " + state
 					appsStatus = append(appsStatus, data)
 				}
 
