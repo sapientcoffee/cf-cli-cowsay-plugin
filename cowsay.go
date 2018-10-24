@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"code.cloudfoundry.org/cli/plugin"
 	"code.cloudfoundry.org/cli/plugin/models"
@@ -29,7 +30,6 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 	if args[0] == "cowsay" {
 		if len(args) > 1 {
 			var err error
-			// var rob :=
 			if args[1] == "apps" {
 
 				// var res []plugin_models.GetAppsModel
@@ -41,10 +41,16 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 					//c.ui.Failed(err.Error())
 				}
 
+				var appsStatus []string
+
 				for _, app := range appsListing {
 
-					fmt.Println(cowsayer.Cow("Application: " + app.Name + "........" + app.State))
+					data := "Application: " + app.Name + " " + app.State
+					// fmt.Println(cowsayer.Cow("Application: " + app.Name + "........" + app.State))
+					appsStatus = append(appsStatus, data)
 				}
+
+				fmt.Println(cowsayer.Cow(strings.Join(appsStatus, "\n")))
 
 			} else if args[1] == "space" {
 				// Work out the space and org that you are in so it can be retruned to the CLI
