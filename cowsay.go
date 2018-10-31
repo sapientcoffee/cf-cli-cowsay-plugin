@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"strings"
 
 	"code.cloudfoundry.org/cli/plugin"
@@ -66,6 +68,41 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 				if org, err = cliConnection.GetCurrentOrg(); err != nil {
 				}
 				fmt.Println(cowsayer.Cow("Space: " + space.Name + " in the organisation: " + org.Name))
+			} else if args[1] == "check" {
+
+				appsRoutes, err := cliConnection.GetApps()
+
+				if err != nil {
+					//c.ui.Failed(err.Error())
+				}
+
+				var routeStatus []string
+
+				for _, app := range appsRoutes {
+
+					for _, routes := range app.Routes {
+						var data string
+
+						fqdn := "https://" + routes.Host + "." + routes.Domain.Name
+
+						resp, err := http.Get(fqdn)
+
+						if err != nil {
+							log.Fatal(err)
+						}
+
+						if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
+							data := routes.Host + " is all good in the hood."
+							routeStatus = append(routeStatus, data)
+						} else {
+							data := "Argh! " + routes.Host + " broken"
+							routeStatus = append(routeStatus, data)
+						}
+						routeStatus = append(routeStatus, data)
+					}
+				}
+				fmt.Println(cowsayer.Cow(strings.Join(routeStatus, "\n")))
+
 			} else {
 				// Default answer so that it just prints the message you passed to the CLI
 				fmt.Println(cowsayer.Simplesay(args))
@@ -93,7 +130,7 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 		Name: "cowsay",
 		Version: plugin.VersionType{
 			Major: 0,
-			Minor: 8,
+			Minor: 9,
 			Build: 0,
 		},
 		MinCliVersion: plugin.VersionType{
