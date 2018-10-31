@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"code.cloudfoundry.org/cli/plugin"
@@ -29,6 +30,27 @@ type Cowsay struct{}
 // user facing errors). The CLI will exit 0 if the plugin exits 0 and will exit
 // 1 should the plugin exits nonzero.
 func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
+
+	var err error
+	var hasAPIEndpoint bool
+	var isLoggedIn bool
+	if hasAPIEndpoint, err = cliConnection.HasAPIEndpoint(); err != nil {
+		fmt.Println(err.Error())
+	}
+
+	if !hasAPIEndpoint {
+		fmt.Println("You have to set your api endpoint first with `cf api YOUR_API_URL`")
+		os.Exit(1)
+	}
+
+	if isLoggedIn, err = cliConnection.IsLoggedIn(); err != nil {
+		fmt.Println(err.Error())
+	}
+
+	if !isLoggedIn {
+		fmt.Println("Nobody is logged in")
+		os.Exit(1)
+	}
 
 	if args[0] == "cowsay" {
 		if len(args) > 1 {
