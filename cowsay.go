@@ -125,6 +125,30 @@ func (c *Cowsay) Run(cliConnection plugin.CliConnection, args []string) {
 				}
 				fmt.Println(cowsayer.Cow(strings.Join(routeStatus, "\n")))
 
+			} else if args[1] == "whoami" {
+
+				var apiEndpoint string
+				var username string
+				var org plugin_models.Organization
+				var space plugin_models.Space
+
+				if apiEndpoint, err = cliConnection.ApiEndpoint(); err != nil {
+					fmt.Println(err.Error())
+				}
+
+				if username, err = cliConnection.Username(); err != nil {
+					fmt.Println(err.Error())
+				}
+
+				if org, err = cliConnection.GetCurrentOrg(); err != nil {
+					fmt.Println(err.Error())
+				}
+				if space, err = cliConnection.GetCurrentSpace(); err != nil {
+					fmt.Println(err.Error())
+				}
+
+				fmt.Println(cowsayer.Cow("You are logged in as " + username + " on " + apiEndpoint + "\n\nUsing org " + org.Name + " in the space " + space.Name))
+
 			} else {
 				// Default answer so that it just prints the message you passed to the CLI
 				fmt.Println(cowsayer.Simplesay(args))
@@ -152,7 +176,7 @@ func (c *Cowsay) GetMetadata() plugin.PluginMetadata {
 		Name: "cowsay",
 		Version: plugin.VersionType{
 			Major: 0,
-			Minor: 9,
+			Minor: 11,
 			Build: 0,
 		},
 		MinCliVersion: plugin.VersionType{
